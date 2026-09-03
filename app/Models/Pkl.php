@@ -17,7 +17,7 @@ class Pkl extends Model
 
     public function pembimbing()
     {
-        return $this->belongsTo(pembimbing::class, 'id_pembimbing', 'id_pembimbing');
+        return $this->belongsTo(Pembimbing::class, 'id_pembimbing', 'id_pembimbing');
     }
 
     public function siswa()
