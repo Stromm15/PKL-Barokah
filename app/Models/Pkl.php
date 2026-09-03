@@ -5,10 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable(['nis', 'id_perusahaan', 'id_pembimbing'])]
+#[Fillable(['nis', 'id_perusahaan', 'id_pembimbing', 'tgl_mulai', 'tgl_selesai', 'status'])]
 class Pkl extends Model
 {
     protected $primaryKey = 'id_pkl';
+
+    protected function casts(): array
+    {
+        return [
+            'tgl_mulai' => 'date',
+            'tgl_selesai' => 'date',
+        ];
+    }
 
     public function perusahaan()
     {
@@ -29,6 +37,4 @@ class Pkl extends Model
     {
         return $this->hasOne(Nilai::class, 'id_pkl', 'id_pkl');
     }
-
-
 }

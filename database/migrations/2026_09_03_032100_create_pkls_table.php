@@ -22,6 +22,11 @@ return new class extends Migration
             $table->foreign('id_perusahaan')->references('id_perusahaan')->on('perusahaans')->cascadeOnDelete();
             $table->foreign('id_pembimbing')->references('id_pembimbing')->on('pembimbings')->cascadeOnDelete();
 
+            $table->date('tgl_mulai');
+            $table->date('tgl_selesai');
+
+            $table->string('status');
+
             $table->timestamps();
         });
     }

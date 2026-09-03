@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -106,30 +108,45 @@ class DatabaseSeeder extends Seeder
                 'nis' => '2026001',
                 'id_perusahaan' => 1,
                 'id_pembimbing' => 1,
+                'tgl_mulai' => '2026-01-05',
+                'tgl_selesai' => '2026-04-05',
+                'status' => 'Selesai',
             ],
             [
                 'id_pkl' => 2,
                 'nis' => '2026002',
                 'id_perusahaan' => 1,
                 'id_pembimbing' => 1,
+                'tgl_mulai' => '2026-01-05',
+                'tgl_selesai' => '2026-04-05',
+                'status' => 'Selesai',
             ],
             [
                 'id_pkl' => 3,
                 'nis' => '2026003',
                 'id_perusahaan' => 2,
                 'id_pembimbing' => 2,
+                'tgl_mulai' => '2026-02-01',
+                'tgl_selesai' => '2026-05-01',
+                'status' => 'Aktif',
             ],
             [
                 'id_pkl' => 4,
                 'nis' => '2026004',
                 'id_perusahaan' => 2,
                 'id_pembimbing' => 2,
+                'tgl_mulai' => '2026-02-01',
+                'tgl_selesai' => '2026-05-01',
+                'status' => 'Aktif',
             ],
             [
                 'id_pkl' => 5,
                 'nis' => '2026005',
                 'id_perusahaan' => 3,
                 'id_pembimbing' => 3,
+                'tgl_mulai' => '2026-03-01',
+                'tgl_selesai' => '2026-06-01',
+                'status' => 'Aktif',
             ],
         ]);
 
