@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Siswas\Schemas;
 
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -15,9 +16,9 @@ class SiswaForm
                     ->required(),
                 TextInput::make('nama_siswa')
                     ->required(),
-                TextInput::make('jurusan_id')
-                    ->required()
-                    ->numeric(),
+                Select::make('jurusan_id')
+                    ->relationship('jurusan', 'jurusan')
+                    ->required(),
                 TextInput::make('kelas')
                     ->required(),
                 TextInput::make('no_hp')

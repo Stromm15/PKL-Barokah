@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Siswas\Tables;
 
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
@@ -18,9 +19,8 @@ class SiswasTable
                     ->searchable(),
                 TextColumn::make('nama_siswa')
                     ->searchable(),
-                TextColumn::make('jurusan_id')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make('jurusan.jurusan')
+                    ->searchable(),
                 TextColumn::make('kelas')
                     ->searchable(),
                 TextColumn::make('no_hp')
@@ -39,6 +39,7 @@ class SiswasTable
             ])
             ->recordActions([
                 EditAction::make(),
+                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
