@@ -9,6 +9,7 @@ use App\Filament\Resources\Siswas\Schemas\SiswaForm;
 use App\Filament\Resources\Siswas\Tables\SiswasTable;
 use App\Models\Siswa;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -18,10 +19,10 @@ class SiswaResource extends Resource
 {
     protected static ?string $model = Siswa::class;
 
-    protected static ?string $title = "Siswa";
+    protected static ?string $title = 'Siswa';
 
-    protected static ?string $navigationLabel = "Siswa";
-
+    protected static ?string $navigationLabel = 'Daftar Siswa';
+    protected static UnitEnum|string|null $navigationGroup = 'Master Data';
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'nama_siswa';
