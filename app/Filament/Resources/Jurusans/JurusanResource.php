@@ -22,7 +22,7 @@ class JurusanResource extends Resource
     protected static ?string $navigationLabel = 'Jurusan (Program Studi)';
     protected static UnitEnum|string|null $navigationGroup = 'Master Data';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedAcademicCap;
 
     protected static ?string $recordTitleAttribute = 'jurusan';
 

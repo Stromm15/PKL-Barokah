@@ -23,7 +23,7 @@ class PembimbingResource extends Resource
 
     protected static UnitEnum|string|null $navigationGroup = 'Master Data';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUserCircle;
 
     protected static ?string $recordTitleAttribute = 'nama_pembimbing';
 

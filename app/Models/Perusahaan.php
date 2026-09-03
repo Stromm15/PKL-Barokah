@@ -9,4 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 class Perusahaan extends Model
 {
     protected $primaryKey = 'id_perusahaan';
+
+    public function pkls()
+    {
+        return $this->hasMany(Pkl::class, 'id_perusahaan', 'id_perusahaan');
+    }
 }

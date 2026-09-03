@@ -21,7 +21,7 @@ class PklResource extends Resource
 
     protected static ?string $navigationLabel = 'PKL (Praktik Kerja Lapangan)';
     protected static UnitEnum|string|null $navigationGroup = 'Operasional';
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBriefcase;
 
     protected static ?string $recordTitleAttribute = 'id_pkl';
 
