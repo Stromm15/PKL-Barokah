@@ -27,9 +27,24 @@ class PklResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'nis';
 
-    public static function canAccess(): bool
+     public static function canCreate(): bool
     {
-        return Auth::user()->role === 'admin';
+        return Auth::user()->isAdmin();
+    }
+
+    public static function canEdit($record): bool
+    {
+        return Auth::user()->isAdmin();
+    }
+
+    public static function canDelete($record): bool
+    {
+        return Auth::user()->isAdmin();
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return Auth::user()->isAdmin();
     }
 
     public static function form(Schema $schema): Schema

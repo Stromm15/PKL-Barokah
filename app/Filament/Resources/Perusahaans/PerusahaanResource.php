@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
@@ -28,9 +29,24 @@ class PerusahaanResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'nama_perusahaan';
 
-    public static function canAccess(): bool
+    public static function canCreate(): bool
     {
-        return Auth::user()->role === 'admin';
+        return Auth::user()->isAdmin();
+    }
+
+    public static function canEdit($record): bool
+    {
+        return Auth::user()->isAdmin();
+    }
+
+    public static function canDelete($record): bool
+    {
+        return Auth::user()->isAdmin();
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return Auth::user()->isAdmin();
     }
 
     public static function form(Schema $schema): Schema
@@ -54,8 +70,8 @@ class PerusahaanResource extends Resource
     {
         return [
             'index' => ListPerusahaans::route('/'),
-            // 'create' => CreatePerusahaan::route('/create'),
-            // 'edit' => EditPerusahaan::route('/{record}/edit'),
+            'create' => CreatePerusahaan::route('/create'),
+            'edit' => EditPerusahaan::route('/{record}/edit'),
         ];
     }
 }

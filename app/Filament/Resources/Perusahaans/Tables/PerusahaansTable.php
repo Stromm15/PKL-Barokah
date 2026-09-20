@@ -9,6 +9,7 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 
 class PerusahaansTable
 {
@@ -37,13 +38,13 @@ class PerusahaansTable
                     ->label('Pembimbing')
             ])
             ->recordActions([
-                EditAction::make(),
-                DeleteAction::make(),
+                EditAction::make()->visible(fn () => Auth::user()->isAdmin()),
+                DeleteAction::make()->visible(fn () => Auth::user()->isAdmin()),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
-                ]),
+                ])->visible(fn () => Auth::user()->isAdmin()),
             ]);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\DiterimaPkls\Tables;
 
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
@@ -77,10 +78,11 @@ class DiterimaPklsTable
             ->recordActions([
                 EditAction::make()
                     ->label('Masukan Nilai'),
+                DeleteAction::make()->visible(fn () => Auth::user()->isAdmin())
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()->visible(fn () => Auth::user()->isAdmin()),
                 ]),
             ]);
     }

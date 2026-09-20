@@ -9,6 +9,7 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 
 class SiswasTable
 {
@@ -39,13 +40,13 @@ class SiswasTable
                 SelectFilter::make('jurusan_id')->relationship('jurusan', 'jurusan'),
             ])
             ->recordActions([
-                EditAction::make(),
-                DeleteAction::make(),
+                EditAction::make()->visible(fn () => Auth::user()->isAdmin()),
+                DeleteAction::make()->visible(fn () => Auth::user()->isAdmin()),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
-                ]),
+                ])->visible(fn () => Auth::user()->isAdmin()),
             ]);
     }
 }

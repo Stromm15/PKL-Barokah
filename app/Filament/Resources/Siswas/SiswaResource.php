@@ -30,9 +30,24 @@ class SiswaResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'nama_siswa';
 
-    public static function canAccess(): bool
+     public static function canCreate(): bool
     {
-        return Auth::user()->role === 'admin';
+        return Auth::user()->isAdmin();
+    }
+
+    public static function canEdit($record): bool
+    {
+        return Auth::user()->isAdmin();
+    }
+
+    public static function canDelete($record): bool
+    {
+        return Auth::user()->isAdmin();
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return Auth::user()->isAdmin();
     }
 
     public static function form(Schema $schema): Schema
@@ -56,8 +71,8 @@ class SiswaResource extends Resource
     {
         return [
             'index' => ListSiswas::route('/'),
-            // 'create' => CreateSiswa::route('/create'),
-            // 'edit' => EditSiswa::route('/{record}/edit'),
+            'create' => CreateSiswa::route('/create'),
+            'edit' => EditSiswa::route('/{record}/edit'),
         ];
     }
 }
