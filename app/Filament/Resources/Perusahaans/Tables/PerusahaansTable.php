@@ -7,6 +7,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class PerusahaansTable
@@ -19,6 +20,8 @@ class PerusahaansTable
                     ->searchable(),
                 TextColumn::make('alamat')
                     ->searchable(),
+                TextColumn::make('pembimbing.name')
+                    ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -29,7 +32,9 @@ class PerusahaansTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('pembimbing_id')
+                    ->relationship('pembimbing', 'name')
+                    ->label('Pembimbing')
             ])
             ->recordActions([
                 EditAction::make(),

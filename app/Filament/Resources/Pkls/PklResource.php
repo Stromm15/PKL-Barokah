@@ -13,14 +13,24 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 
 class PklResource extends Resource
 {
     protected static ?string $model = Pkl::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
+
+    protected static ?string $navigationLabel = 'Pkl';
+
+    protected static ?string $label = 'Pkl';
 
     protected static ?string $recordTitleAttribute = 'nis';
+
+    public static function canAccess(): bool
+    {
+        return Auth::user()->role === 'admin';
+    }
 
     public static function form(Schema $schema): Schema
     {
@@ -44,7 +54,7 @@ class PklResource extends Resource
         return [
             'index' => ListPkls::route('/'),
             'create' => CreatePkl::route('/create'),
-            'edit' => EditPkl::route('/{record}/edit'),
+            // 'edit' => EditPkl::route('/{record}/edit'),
         ];
     }
 }

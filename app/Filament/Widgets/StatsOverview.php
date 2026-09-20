@@ -6,6 +6,7 @@ use App\Models\Pembimbing;
 use App\Models\Perusahaan;
 use App\Models\Pkl;
 use App\Models\Siswa;
+use App\Models\User;
 use Filament\Support\Icons\Heroicon;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -32,7 +33,7 @@ class StatsOverview extends StatsOverviewWidget
                 ->descriptionIcon(Heroicon::OutlinedBriefcase)
                 ->color('warning'),
 
-            Stat::make('Pembimbing', Pembimbing::count())
+            Stat::make('Pembimbing', User::where('role', 'pembimbing')->count())
                 ->description('Pembimbing lapangan PKL')
                 ->descriptionIcon(Heroicon::OutlinedUserCircle)
                 ->color('info'),

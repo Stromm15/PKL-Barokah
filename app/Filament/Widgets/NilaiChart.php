@@ -2,49 +2,64 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\Nilai;
+use App\Models\Pkl;
 use Filament\Widgets\ChartWidget;
 
 class NilaiChart extends ChartWidget
 {
-    protected ?string $heading = 'Distribusi Nilai Siswa (Rentang Kelipatan 10)';
+    protected ?string $heading = 'Distribusi Nilai PKL';
 
     protected static ?int $sort = 2;
 
     protected function getData(): array
     {
-        // $ranges = [
-        //     '10' => [1, 10],
-        //     '20' => [11, 20],
-        //     '30' => [21, 30],
-        //     '40' => [31, 40],
-        //     '50' => [41, 50],
-        //     '60' => [51, 60],
-        //     '70' => [61, 70],
-        //     '80' => [71, 80],
-        //     '90' => [81, 90],
-        //     '100' => [91, 100],
-        // ];
+        $ranges = [
+            '< 60',
+            '60 - 69',
+            '70 - 79',
+            '80 - 89',
+            '90 - 100',
+        ];
 
-        // $scores = Nilai::pluck('nilai_perusahaan');
+        $scores = Pkl::query()
+            ->whereNotNull('nilai')
+            ->pluck('nilai')
+            ->map(fn ($value) => (int) $value);
 
-        // $data = [];
-        // foreach ($ranges as $label => [$min, $max]) {
-        //     $data[] = $scores->filter(fn ($score) => $score >= $min && $score <= $max)->count();
-        // }
+        $counts = [0, 0, 0, 0, 0];
 
-        // return [
-        //     'datasets' => [
-        //         [
-        //             'label' => 'Jumlah Siswa',
-        //             'data' => $data,
-        //             'backgroundColor' => 'rgba(59, 130, 246, 0.6)',
-        //             'borderColor' => '#3b82f6',
-        //             'borderWidth' => 1,
-        //         ],
-        //     ],
-        //     'labels' => ['10', '20', '30', '40', '50', '60', '70', '80', '90', '100'],
-        // ];
+        foreach ($scores as $score) {
+            if ($score < 60) {
+                $counts[0]++;
+            } elseif ($score < 70) {
+                $counts[1]++;
+            } elseif ($score < 80) {
+                $counts[2]++;
+            } elseif ($score < 90) {
+                $counts[3]++;
+            } else {
+                $counts[4]++;
+            }
+        }
+
+        return [
+            'datasets' => [
+                [
+                    'label' => 'Jumlah Siswa',
+                    'data' => $counts,
+                    'backgroundColor' => [
+                        'rgba(239, 68, 68, 0.6)',
+                        'rgba(251, 146, 60, 0.6)',
+                        'rgba(250, 204, 21, 0.6)',
+                        'rgba(34, 197, 94, 0.6)',
+                        'rgba(59, 130, 246, 0.6)',
+                    ],
+                    'borderColor' => '#1f2937',
+                    'borderWidth' => 1,
+                ],
+            ],
+            'labels' => $ranges,
+        ];
     }
 
     protected function getType(): string

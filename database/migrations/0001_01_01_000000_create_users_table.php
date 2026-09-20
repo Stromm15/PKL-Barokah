@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->enum('role', ['admin', 'pembimbing', 'siswa']);
+            $table->string('no_hp')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -1,24 +1,29 @@
 <?php
 
-namespace App\Filament\Resources\Pembimbings\Tables;
+namespace App\Filament\Resources\Users\Tables;
 
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class PembimbingsTable
+class UsersTable
 {
     public static function configure(Table $table): Table
     {
         return $table
+        ->modifyQueryUsing(fn ($query) => $query->where('role', 'pembimbing'))
             ->columns([
-                TextColumn::make('nama_pembimbing')
+                TextColumn::make('name')
+                    ->searchable(),
+                TextColumn::make('email')
+                    ->label('Email address')
                     ->searchable(),
                 TextColumn::make('no_hp')
                     ->searchable(),
+                TextColumn::make('role')
+                    ->badge(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -33,7 +38,6 @@ class PembimbingsTable
             ])
             ->recordActions([
                 EditAction::make(),
-                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

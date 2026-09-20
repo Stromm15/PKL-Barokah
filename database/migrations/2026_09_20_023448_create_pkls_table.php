@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nis');
             $table->foreign('nis')->references('nis')->on('siswas')->cascadeOnDelete();
             $table->foreignId('id_perusahaan')->constrained('perusahaans', 'id_perusahaan')->cascadeOnDelete();
-            $table->foreignId('id_pembimbing')->nullable()->constrained('pembimbings', 'id_pembimbing')->cascadeOnDelete();
+            $table->foreignId('id_pembimbing')->nullable()->constrained('users', 'id')->cascadeOnDelete();
 
             // $table->foreignId('id_perusahaan');
             // $table->foreignId('id_pembimbing')->nullable();

@@ -6,6 +6,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,16 +15,7 @@ class DiterimaPklsTable
     public static function configure(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(function ($query) {
-                $user = Auth::user();
-
-                $query->whereIn('status', ['Selesai', 'Diterima']);
-
-                if($user->role === 'pembimbing') {
-                    $query->where('id_pembimbing', $user->id);
-                }
-
-            })
+            ->modifyQueryUsing(fn ($query) => $query->whereIn('status', ['Aktif', 'Diterima', 'Selesai']))
             ->columns([
                 TextColumn::make('nis')
                     ->searchable(),
@@ -33,7 +25,7 @@ class DiterimaPklsTable
                     ->searchable(),
                 TextColumn::make('perusahaan.nama_perusahaan')
                     ->searchable(),
-                TextColumn::make('perusahaan.pembimbing.nama_pembimbing')
+                TextColumn::make('perusahaan.pembimbing.name')
                     ->searchable(),
                 TextColumn::make('tgl_mulai')
                     ->date()
@@ -48,7 +40,7 @@ class DiterimaPklsTable
                         'Diterima' => 'success',
                         'Ditolak' => 'danger',
                         'Aktif' => 'info',
-                        'Selesai' => 'success',
+                        'Selesai' => 'gray',
                         default => 'gray',
                     })
                     ->searchable(),
@@ -65,10 +57,26 @@ class DiterimaPklsTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('jurusan_id')
+                    ->relationship('siswa.jurusan', 'jurusan')
+                    ->label('Jurusan'),
+                SelectFilter::make('id_pembimbing')
+                    ->relationship('pembimbing', 'name', (fn ($query) => $query->where('role', 'pembimbing')))
+                    ->label('Pembimbing'),
+                SelectFilter::make('perusahaan_id')
+                    ->relationship('perusahaan', 'nama_perusahaan')
+                    ->label('Perusahaan'),
+                SelectFilter::make('status')
+                    ->options([
+                        'Diterima' => 'Diterima',
+                        'Aktif' => 'Aktif',
+                        'Selesai' => 'Selesai',
+                    ])
+                    ->label('Status'),
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->label('Masukan Nilai'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

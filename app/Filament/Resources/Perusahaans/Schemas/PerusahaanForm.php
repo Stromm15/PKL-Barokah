@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Perusahaans\Schemas;
 
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -15,6 +16,15 @@ class PerusahaanForm
                     ->required(),
                 TextInput::make('alamat')
                     ->required(),
+                Select::make('id_pembimbing')
+                    ->label('Pembimbing')
+                    ->relationship(
+                        'pembimbing',
+                        'name',
+                        fn ($query) => $query->where('role', 'pembimbing')
+                    )
+                    ->searchable()
+                    ->preload()
             ]);
     }
 }

@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class SiswaResource extends Resource
@@ -28,6 +29,11 @@ class SiswaResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
 
     protected static ?string $recordTitleAttribute = 'nama_siswa';
+
+    public static function canAccess(): bool
+    {
+        return Auth::user()->role === 'admin';
+    }
 
     public static function form(Schema $schema): Schema
     {

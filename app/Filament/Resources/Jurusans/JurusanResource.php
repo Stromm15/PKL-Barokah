@@ -13,6 +13,8 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
+use Override;
 use UnitEnum;
 
 class JurusanResource extends Resource
@@ -26,6 +28,11 @@ class JurusanResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedAcademicCap;
 
     protected static ?string $recordTitleAttribute = 'jurusan';
+
+    public static function canAccess(): bool
+    {
+        return Auth::user()->role === 'admin';
+    }
 
     public static function form(Schema $schema): Schema
     {
@@ -48,8 +55,8 @@ class JurusanResource extends Resource
     {
         return [
             'index' => ListJurusans::route('/'),
-            'create' => CreateJurusan::route('/create'),
-            'edit' => EditJurusan::route('/{record}/edit'),
+            // 'create' => CreateJurusan::route('/create'),
+            // 'edit' => EditJurusan::route('/{record}/edit'),
         ];
     }
 }

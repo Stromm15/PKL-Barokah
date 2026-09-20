@@ -17,6 +17,6 @@ class Perusahaan extends Model
 
     public function pembimbing()
     {
-        return $this->belongsTo(Pembimbing::class, 'id_pembimbing', 'id_pembimbing');
+        return $this->belongsTo(User::class, 'id_pembimbing', 'id');
     }
 }

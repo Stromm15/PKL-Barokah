@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class PerusahaanResource extends Resource
@@ -26,6 +27,11 @@ class PerusahaanResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBuildingOffice2;
 
     protected static ?string $recordTitleAttribute = 'nama_perusahaan';
+
+    public static function canAccess(): bool
+    {
+        return Auth::user()->role === 'admin';
+    }
 
     public static function form(Schema $schema): Schema
     {
@@ -48,8 +54,8 @@ class PerusahaanResource extends Resource
     {
         return [
             'index' => ListPerusahaans::route('/'),
-            'create' => CreatePerusahaan::route('/create'),
-            'edit' => EditPerusahaan::route('/{record}/edit'),
+            // 'create' => CreatePerusahaan::route('/create'),
+            // 'edit' => EditPerusahaan::route('/{record}/edit'),
         ];
     }
 }

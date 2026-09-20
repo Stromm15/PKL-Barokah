@@ -6,6 +6,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class PklsTable
@@ -13,7 +14,7 @@ class PklsTable
     public static function configure(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn ($query) => $query->whereIn('status', ['Aktif', 'Ditolak', 'Mengajukan']))
+            // ->modifyQueryUsing(fn ($query) => $query->whereIn('status', ['Aktif', 'Ditolak', 'Mengajukan']))
             ->columns([
                 TextColumn::make('nis')
                     ->searchable(),
@@ -50,7 +51,24 @@ class PklsTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('jurusan_id')
+                    ->relationship('siswa.jurusan', 'jurusan')
+                    ->label('Jurusan'),
+                SelectFilter::make('id_pembimbing')
+                    ->relationship('pembimbing', 'name', (fn ($query) => $query->where('role', 'pembimbing')))
+                    ->label('Pembimbing'),
+                SelectFilter::make('perusahaan_id')
+                    ->relationship('perusahaan', 'nama_perusahaan')
+                    ->label('Perusahaan'),
+                SelectFilter::make('status')
+                    ->options([
+                        'Mengajukan' => 'Mengajukan',
+                        'Diterima' => 'Diterima',
+                        'Ditolak' => 'Ditolak',
+                        'Aktif' => 'Aktif',
+                        'Selesai' => 'Selesai',
+                    ])
+                    ->label('Status'),
             ])
             ->recordActions([
                 EditAction::make(),

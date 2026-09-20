@@ -48,7 +48,7 @@ class PklForm
                     ->default('Mengajukan')
                     ->live()
                     ->afterStateUpdated(function (Set $set, ?string $state): void {
-                        if ($state === 'Mengajukan') {
+                        if ($state === 'Selesai') {
                             $set('nilai', 0);
                         }
                     })
