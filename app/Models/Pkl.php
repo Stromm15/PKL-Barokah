@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable(['nis', 'id_perusahaan', 'id_pembimbing', 'tgl_mulai', 'tgl_selesai', 'status'])]
+#[Fillable(['nis', 'id_perusahaan', 'id_pembimbing', 'tgl_mulai', 'tgl_selesai', 'status', 'nilai'])]
 class Pkl extends Model
 {
     protected $primaryKey = 'id_pkl';
@@ -25,7 +25,7 @@ class Pkl extends Model
 
     public function pembimbing()
     {
-        return $this->belongsTo(Pembimbing::class, 'id_pembimbing', 'id_pembimbing');
+        return $this->belongsTo(User::class, 'id_pembimbing', 'id');
     }
 
     public function siswa()

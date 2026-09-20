@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 #[Fillable('jurusan')]
 class Jurusan extends Model
 {
-    public function siswas(){
+    public function siswas()
+    {
         return $this->hasMany(Siswa::class);
     }
 }
