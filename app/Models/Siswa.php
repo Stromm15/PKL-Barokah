@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable([ 'nis', 'nama_siswa', 'jurusan_id', 'kelas', 'no_hp'])]
+#[Fillable(['nis', 'nama_siswa', 'jurusan_id', 'kelas', 'no_hp'])]
 class Siswa extends Model
 {
     protected $primaryKey = 'nis';
-    public function jurusan() {
+
+    public function jurusan()
+    {
         return $this->belongsTo(Jurusan::class);
     }
 }

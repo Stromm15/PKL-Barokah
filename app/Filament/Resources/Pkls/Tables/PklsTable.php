@@ -3,11 +3,9 @@
 namespace App\Filament\Resources\Pkls\Tables;
 
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class PklsTable
@@ -15,47 +13,33 @@ class PklsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn ($query) => $query->whereIn('status', ['Aktif', 'Ditolak', 'Mengajukan']))
             ->columns([
                 TextColumn::make('nis')
-                    ->label('NIS')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
                 TextColumn::make('siswa.nama_siswa')
-                    ->label('Nama Siswa')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
+                TextColumn::make('siswa.jurusan.jurusan')
+                    ->searchable(),
                 TextColumn::make('perusahaan.nama_perusahaan')
-                    ->label('Nama Perusahaan')
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('pembimbing.nama_pembimbing')
-                    ->label('Nama Pembimbing')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
                 TextColumn::make('tgl_mulai')
-                    ->label('Tgl Mulai')
-                    ->date('d M Y')
+                    ->date()
                     ->sortable(),
                 TextColumn::make('tgl_selesai')
-                    ->label('Tgl Selesai')
-                    ->date('d M Y')
+                    ->date()
                     ->sortable(),
                 TextColumn::make('status')
-                    ->label('Status')
                     ->badge()
-                    ->color(fn (?string $state): string => match ($state) {
-                        'Aktif' => 'success',
-                        'Selesai' => 'info',
-                        'Menunggu' => 'warning',
-                        'Dibatalkan' => 'danger',
+                    ->color(fn (string $state): string => match ($state) {
+                        'Mengajukan' => 'warning',
+                        'Diterima' => 'success',
+                        'Ditolak' => 'danger',
+                        'Aktif' => 'info',
+                        'Selesai' => 'success',
                         default => 'gray',
                     })
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('nilai.nilai_perusahaan')
-                    ->label('Nilai')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -66,20 +50,10 @@ class PklsTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                SelectFilter::make('id_perusahaan')
-                    ->label('Perusahaan')
-                    ->relationship('perusahaan', 'nama_perusahaan'),
-                SelectFilter::make('status')
-                    ->options([
-                        'Aktif' => 'Aktif',
-                        'Selesai' => 'Selesai',
-                        'Menunggu' => 'Menunggu',
-                        'Dibatalkan' => 'Dibatalkan',
-                    ]),
+                //
             ])
             ->recordActions([
                 EditAction::make(),
-                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

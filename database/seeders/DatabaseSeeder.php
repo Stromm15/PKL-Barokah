@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -63,25 +61,6 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
-        // Perusahaan
-        DB::table('perusahaans')->insert([
-            [
-                'id_perusahaan' => 1,
-                'nama_perusahaan' => 'PT Teknologi Nusantara',
-                'alamat' => 'Jl. Soekarno Hatta No. 100, Bandung',
-            ],
-            [
-                'id_perusahaan' => 2,
-                'nama_perusahaan' => 'CV Digital Kreatif',
-                'alamat' => 'Jl. Buah Batu No. 25, Bandung',
-            ],
-            [
-                'id_perusahaan' => 3,
-                'nama_perusahaan' => 'PT Inovasi Indonesia',
-                'alamat' => 'Jl. Asia Afrika No. 50, Bandung',
-            ],
-        ]);
-
         // Pembimbing
         DB::table('pembimbings')->insert([
             [
@@ -101,81 +80,69 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
+        // Perusahaan
+        DB::table('perusahaans')->insert([
+            [
+                'id_perusahaan' => 1,
+                'id_pembimbing' => 1,
+                'nama_perusahaan' => 'PT Teknologi Nusantara',
+                'alamat' => 'Jl. Soekarno Hatta No. 100, Bandung',
+            ],
+            [
+                'id_perusahaan' => 2,
+                'id_pembimbing' => 1,
+                'nama_perusahaan' => 'CV Digital Kreatif',
+                'alamat' => 'Jl. Buah Batu No. 25, Bandung',
+            ],
+            [
+                'id_perusahaan' => 3,
+                'id_pembimbing' => 1,
+                'nama_perusahaan' => 'PT Inovasi Indonesia',
+                'alamat' => 'Jl. Asia Afrika No. 50, Bandung',
+            ],
+        ]);
+
         // PKL
         DB::table('pkls')->insert([
             [
                 'id_pkl' => 1,
                 'nis' => '2026001',
                 'id_perusahaan' => 1,
-                'id_pembimbing' => 1,
                 'tgl_mulai' => '2026-01-05',
                 'tgl_selesai' => '2026-04-05',
-                'status' => 'Selesai',
+                'status' => 'Diterima',
             ],
             [
                 'id_pkl' => 2,
                 'nis' => '2026002',
                 'id_perusahaan' => 1,
-                'id_pembimbing' => 1,
                 'tgl_mulai' => '2026-01-05',
                 'tgl_selesai' => '2026-04-05',
-                'status' => 'Selesai',
+                'status' => 'Diterima',
             ],
             [
                 'id_pkl' => 3,
                 'nis' => '2026003',
                 'id_perusahaan' => 2,
-                'id_pembimbing' => 2,
                 'tgl_mulai' => '2026-02-01',
                 'tgl_selesai' => '2026-05-01',
-                'status' => 'Aktif',
+                'status' => 'Mengajukan',
             ],
             [
                 'id_pkl' => 4,
                 'nis' => '2026004',
                 'id_perusahaan' => 2,
-                'id_pembimbing' => 2,
                 'tgl_mulai' => '2026-02-01',
                 'tgl_selesai' => '2026-05-01',
-                'status' => 'Aktif',
+                'status' => 'Diterima',
             ],
             [
                 'id_pkl' => 5,
                 'nis' => '2026005',
                 'id_perusahaan' => 3,
-                'id_pembimbing' => 3,
                 'tgl_mulai' => '2026-03-01',
                 'tgl_selesai' => '2026-06-01',
-                'status' => 'Aktif',
-            ],
-        ]);
-
-        // Nilai
-        DB::table('nilais')->insert([
-            [
-                'id_nilai' => 1,
-                'id_pkl' => 1,
-                'nilai_perusahaan' => 88,
-            ],
-            [
-                'id_nilai' => 2,
-                'id_pkl' => 2,
-                'nilai_perusahaan' => 92,
-            ],
-            [
-                'id_nilai' => 3,
-                'id_pkl' => 3,
-                'nilai_perusahaan' => 85,
-            ],
-            [
-                'id_nilai' => 4,
-                'id_pkl' => 4,
-                'nilai_perusahaan' => 90,
-            ],
-            [
-                'id_nilai' => 5,
-                'id_pkl' => 5,
-                'nilai_perusahaan' => 87,
+                'status' => 'Ditolak',
             ],
         ]);
     }

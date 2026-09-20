@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable(['nis', 'id_perusahaan', 'id_pembimbing', 'tgl_mulai', 'tgl_selesai', 'status'])]
+#[Fillable(['nis', 'id_perusahaan', 'id_pembimbing', 'tgl_mulai', 'tgl_selesai', 'status', 'nilai'])]
 class Pkl extends Model
 {
     protected $primaryKey = 'id_pkl';

@@ -15,17 +15,20 @@ return new class extends Migration
             $table->id('id_pkl');
             $table->string('nis');
             $table->foreign('nis')->references('nis')->on('siswas')->cascadeOnDelete();
+            $table->foreignId('id_perusahaan')->constrained('perusahaans', 'id_perusahaan')->cascadeOnDelete();
+            $table->foreignId('id_pembimbing')->nullable()->constrained('pembimbings', 'id_pembimbing')->cascadeOnDelete();
 
-            $table->foreignId('id_perusahaan');
-            $table->foreignId('id_pembimbing');
+            // $table->foreignId('id_perusahaan');
+            // $table->foreignId('id_pembimbing')->nullable();
 
-            $table->foreign('id_perusahaan')->references('id_perusahaan')->on('perusahaans')->cascadeOnDelete();
-            $table->foreign('id_pembimbing')->references('id_pembimbing')->on('pembimbings')->cascadeOnDelete();
+            // $table->foreign('id_perusahaan')->references('id_perusahaan')->on('perusahaans')->cascadeOnDelete();
+            // $table->foreign('id_pembimbing')->references('id_pembimbing')->on('pembimbings')->cascadeOnDelete();
 
             $table->date('tgl_mulai');
             $table->date('tgl_selesai');
 
             $table->string('status');
+            $table->integer('nilai')->nullable();
 
             $table->timestamps();
         });

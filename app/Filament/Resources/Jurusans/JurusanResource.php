@@ -9,17 +9,18 @@ use App\Filament\Resources\Jurusans\Schemas\JurusanForm;
 use App\Filament\Resources\Jurusans\Tables\JurusansTable;
 use App\Models\Jurusan;
 use BackedEnum;
-use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class JurusanResource extends Resource
 {
     protected static ?string $model = Jurusan::class;
 
     protected static ?string $navigationLabel = 'Jurusan (Program Studi)';
+
     protected static UnitEnum|string|null $navigationGroup = 'Master Data';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedAcademicCap;

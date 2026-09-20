@@ -5,6 +5,8 @@ namespace App\Filament\Resources\Pkls\Schemas;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 
 class PklForm
@@ -13,7 +15,7 @@ class PklForm
     {
         return $schema
             ->components([
-                Select::make('nis')
+               Select::make('nis')
                     ->label('Nama Siswa')
                     ->required()
                     ->relationship('siswa', 'nama_siswa')
@@ -23,12 +25,6 @@ class PklForm
                     ->label('Perusahaan Mitra')
                     ->required()
                     ->relationship('perusahaan', 'nama_perusahaan')
-                    ->searchable()
-                    ->preload(),
-                Select::make('id_pembimbing')
-                    ->label('Pembimbing Lapangan')
-                    ->required()
-                    ->relationship('pembimbing', 'nama_pembimbing')
                     ->searchable()
                     ->preload(),
                 DatePicker::make('tgl_mulai')
@@ -43,18 +39,29 @@ class PklForm
                 Select::make('status')
                     ->label('Status')
                     ->options([
+                        'Diterima' => 'Diterima',
+                        'Mengajukan' => 'Mengajukan',
+                        'Ditolak' => 'Ditolak',
                         'Aktif' => 'Aktif',
                         'Selesai' => 'Selesai',
-                        'Menunggu' => 'Menunggu',
-                        'Dibatalkan' => 'Dibatalkan',
                     ])
-                    ->default('Aktif')
+                    ->default('Mengajukan')
+                    ->live()
+                    ->afterStateUpdated(function (Set $set, ?string $state): void {
+                        if ($state === 'Mengajukan') {
+                            $set('nilai', 0);
+                        }
+                    })
                     ->required(),
-                TextInput::make('nilai.nilai_perusahaan')
+
+                TextInput::make('nilai')
                     ->label('Nilai Perusahaan')
                     ->numeric()
                     ->minValue(0)
-                    ->maxValue(100),
+                    ->maxValue(100)
+                    ->default(0)
+                    ->visible(fn (Get $get) => $get('status') === 'Selesai')
+                    ->dehydrated(),
             ]);
     }
 }
