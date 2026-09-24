@@ -22,8 +22,8 @@ class NilaiChart extends ChartWidget
         ];
 
         $scores = Pkl::query()
-            ->whereNotNull('nilai')
-            ->pluck('nilai')
+            ->whereNotNull('rata_rata')
+            ->pluck('rata_rata')
             ->map(fn ($value) => (int) $value);
 
         $counts = [0, 0, 0, 0, 0];

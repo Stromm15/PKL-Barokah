@@ -56,9 +56,9 @@ class PklsTable
                 SelectFilter::make('jurusan_id')
                     ->relationship('siswa.jurusan', 'jurusan')
                     ->label('Jurusan'),
-                SelectFilter::make('id_pembimbing')
-                    ->relationship('pembimbing', 'name', (fn ($query) => $query->where('role', 'pembimbing')))
-                    ->label('Pembimbing'),
+                SelectFilter::make('id_pic')
+                    ->relationship('pic', 'name', (fn ($query) => $query->where('role', 'pic')))
+                    ->label('PIC'),
                 SelectFilter::make('perusahaan_id')
                     ->relationship('perusahaan', 'nama_perusahaan')
                     ->label('Perusahaan'),

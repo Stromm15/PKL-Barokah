@@ -2,7 +2,6 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\Pembimbing;
 use App\Models\Perusahaan;
 use App\Models\Pkl;
 use App\Models\Siswa;
@@ -33,8 +32,8 @@ class StatsOverview extends StatsOverviewWidget
                 ->descriptionIcon(Heroicon::OutlinedBriefcase)
                 ->color('warning'),
 
-            Stat::make('Pembimbing', User::where('role', 'pembimbing')->count())
-                ->description('Pembimbing lapangan PKL')
+            Stat::make('PIC', User::where('role', 'pic')->count())
+                ->description('PIC lapangan PKL')
                 ->descriptionIcon(Heroicon::OutlinedUserCircle)
                 ->color('info'),
         ];

@@ -26,7 +26,8 @@ class DiterimaPklsTable
                     ->searchable(),
                 TextColumn::make('perusahaan.nama_perusahaan')
                     ->searchable(),
-                TextColumn::make('perusahaan.pembimbing.name')
+                TextColumn::make('perusahaan.pic.name')
+                    ->label('PIC')
                     ->searchable(),
                 TextColumn::make('tgl_mulai')
                     ->date()
@@ -45,7 +46,19 @@ class DiterimaPklsTable
                         default => 'gray',
                     })
                     ->searchable(),
-                TextColumn::make('nilai')
+                TextColumn::make('nilai_1')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('nilai_2')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('nilai_3')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('nilai_4')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('rata_rata')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')
@@ -61,9 +74,9 @@ class DiterimaPklsTable
                 SelectFilter::make('jurusan_id')
                     ->relationship('siswa.jurusan', 'jurusan')
                     ->label('Jurusan'),
-                SelectFilter::make('id_pembimbing')
-                    ->relationship('pembimbing', 'name', (fn ($query) => $query->where('role', 'pembimbing')))
-                    ->label('Pembimbing'),
+                SelectFilter::make('id_pic')
+                    ->relationship('pic', 'name', (fn ($query) => $query->where('role', 'pic')))
+                    ->label('PIC'),
                 SelectFilter::make('perusahaan_id')
                     ->relationship('perusahaan', 'nama_perusahaan')
                     ->label('Perusahaan'),
@@ -78,7 +91,7 @@ class DiterimaPklsTable
             ->recordActions([
                 EditAction::make()
                     ->label('Masukan Nilai'),
-                DeleteAction::make()->visible(fn () => Auth::user()->isAdmin())
+                DeleteAction::make()->visible(fn () => Auth::user()->isAdmin()),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

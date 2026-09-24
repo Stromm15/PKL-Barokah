@@ -10,10 +10,11 @@ class EditPkl extends EditRecord
 {
     protected static string $resource = PklResource::class;
 
-    protected function afterSave(): void{
+    protected function afterSave(): void
+    {
         if ($this->record->status === 'Diterima') {
             $this->record->update([
-                'id_pembimbing' => $this->record->perusahaan->id_pembimbing,
+                'id_pic' => $this->record->perusahaan->id_pic,
             ]);
         }
     }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable(['nama_perusahaan', 'alamat', 'id_pembimbing'])]
+#[Fillable(['nama_perusahaan', 'alamat', 'id_pic'])]
 class Perusahaan extends Model
 {
     protected $primaryKey = 'id_perusahaan';
@@ -15,8 +15,8 @@ class Perusahaan extends Model
         return $this->hasMany(Pkl::class, 'id_perusahaan', 'id_perusahaan');
     }
 
-    public function pembimbing()
+    public function pic()
     {
-        return $this->belongsTo(User::class, 'id_pembimbing', 'id');
+        return $this->belongsTo(User::class, 'id_pic', 'id');
     }
 }

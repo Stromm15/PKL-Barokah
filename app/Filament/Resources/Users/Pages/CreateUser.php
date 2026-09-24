@@ -11,7 +11,7 @@ class CreateUser extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $data['role'] = 'pembimbing';
+        $data['role'] = 'pic';
         $data['password'] = bcrypt($data['password']);
 
         return $data;

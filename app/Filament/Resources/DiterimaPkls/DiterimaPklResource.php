@@ -30,8 +30,8 @@ class DiterimaPklResource extends Resource
     {
         $query = parent::getEloquentQuery();
 
-        if (Auth::user()->role === 'pembimbing') {
-            $query->where('id_pembimbing', Auth::id());
+        if (Auth::user()->role === 'pic') {
+            $query->where('id_pic', Auth::id());
         }
 
         return $query;

@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Users\Schemas;
 
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -25,7 +24,7 @@ class UserForm
                     ->required(fn ($operation) => $operation === 'create')
                     ->dehydrated(fn ($state) => filled($state)),
                 // TextInput::make('role')
-                //     ->default('pembimbing')
+                //     ->default('pic')
                 //     ->visible(false)
                 //     ->dehydrated(),
             ]);

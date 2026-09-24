@@ -22,9 +22,9 @@ class User extends Authenticatable
         return $this->role === 'admin';
     }
 
-    public function isPembimbing(): bool
+    public function isPic(): bool
     {
-        return $this->role === 'pembimbing';
+        return $this->role === 'pic';
     }
 
     /**

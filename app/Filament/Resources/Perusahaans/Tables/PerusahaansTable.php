@@ -21,7 +21,8 @@ class PerusahaansTable
                     ->searchable(),
                 TextColumn::make('alamat')
                     ->searchable(),
-                TextColumn::make('pembimbing.name')
+                TextColumn::make('pic.name')
+                    ->label('PIC')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -33,9 +34,9 @@ class PerusahaansTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                SelectFilter::make('pembimbing_id')
-                    ->relationship('pembimbing', 'name')
-                    ->label('Pembimbing')
+                SelectFilter::make('id_pic')
+                    ->relationship('pic', 'name')
+                    ->label('PIC'),
             ])
             ->recordActions([
                 EditAction::make()->visible(fn () => Auth::user()->isAdmin()),

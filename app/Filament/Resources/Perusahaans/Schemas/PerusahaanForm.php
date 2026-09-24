@@ -16,15 +16,15 @@ class PerusahaanForm
                     ->required(),
                 TextInput::make('alamat')
                     ->required(),
-                Select::make('id_pembimbing')
-                    ->label('Pembimbing')
+                Select::make('id_pic')
+                    ->label('PIC')
                     ->relationship(
-                        'pembimbing',
+                        'pic',
                         'name',
-                        fn ($query) => $query->where('role', 'pembimbing')
+                        fn ($query) => $query->where('role', 'pic')
                     )
                     ->searchable()
-                    ->preload()
+                    ->preload(),
             ]);
     }
 }
